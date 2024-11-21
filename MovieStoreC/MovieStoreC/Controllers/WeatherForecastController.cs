@@ -14,14 +14,24 @@ namespace MovieStoreC.Controllers
         {
             _moviesService = moviesService;
         }
-             
 
-        [HttpGet("getall")]
-        public IEnumerable<Movie> Get(IMoviesService _moviesService)
+        [HttpGet("GetAll")]
+        public IEnumerable<Movie> GetAll()
         {
             return _moviesService.GetAll();
-            
-               
+        }
+
+        [HttpGet("GetById")]
+        public Movie? Get(int id)
+        {
+            return _moviesService.GetById(id);
+        }
+
+        [HttpGet("Add")]
+        public void Add(movie)
+        {
+            _moviesService.Add(movie);
+
         }
     }
 }

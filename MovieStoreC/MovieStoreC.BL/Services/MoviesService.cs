@@ -1,5 +1,6 @@
 ﻿using MovieStoreC.BL.Interfaces;
 using MovieStoreC.DL.Interfaces;
+using MovieStoreC.DL.StaticData;
 using MovieStoreC.Models.DTO;
 
 namespace MovieStoreC.BL.Services
@@ -16,6 +17,15 @@ namespace MovieStoreC.BL.Services
         public List<Movie> GetAll()
         {
             return _movieRepository.GetAll();
+        }
+        public void Add(Movie movie)
+        {
+            StaticDb.Movies.Add(movie);
+        }
+
+        public Movie? GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,3 +1,4 @@
+using Mapster;
 using MovieStoreC.DL;
 
 namespace MovieStoreC
@@ -11,6 +12,9 @@ namespace MovieStoreC
             // Add services to the container.
             builder.Services.RegisterRepostitories();
             builder.Services.RegisterService();
+
+            builder.Services.AddMapster();
+
 
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();

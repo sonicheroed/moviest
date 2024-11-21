@@ -1,9 +1,13 @@
-﻿using MovieStoreC.Models.DTO;
+﻿using MovieStoreC.DL.Interfaces;
+using MovieStoreC.Models.DTO;
 
 namespace MovieStoreC.BL.Interfaces
 {
     public interface IMoviesService
     {
         List<Movie> GetAll();
+        Movie? GetById(int id);
+
+
     }
 }
