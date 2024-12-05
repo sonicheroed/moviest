@@ -6,11 +6,11 @@ namespace MovieStoreC.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MoviesController : ControllerBase
+    public class BusinessController : ControllerBase
     {
-        private readonly IMoviesService _moviesService;
+        private readonly IBusinessService _moviesService;
 
-        public MoviesController(IMoviesService moviesService)
+        public BusinessController(IBusinessService moviesService)
         {
             _moviesService = moviesService;
         }

@@ -5,7 +5,7 @@ using MovieStoreC.Models.DTO;
 
 namespace MovieStoreC.BL.Services
 {
-    internal class MoviesService : IMoviesService
+    internal class MoviesService : IBusinessService
     {
         private readonly IMovieRepository _movieRepository;
 

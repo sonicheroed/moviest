@@ -3,7 +3,7 @@ using MovieStoreC.Models.DTO;
 
 namespace MovieStoreC.BL.Interfaces
 {
-    public interface IMoviesService
+    public interface IBusinessService
     {
         List<Movie> GetAll();
         Movie? GetById(int id);

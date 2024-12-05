@@ -1,39 +1,49 @@
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using Mapster;
-using MovieStoreC.DL;
+using MovieStoreB.BL;
+using MovieStoreB.DL;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
+using MovieStoreB.Controllers;
 
-namespace MovieStoreC
+var builder = WebApplication.CreateBuilder(args);
+
+var logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .WriteTo.Console(theme:
+        AnsiConsoleTheme.Code)
+    .CreateLogger();
+
+builder.Logging.AddSerilog(logger);
+
+// Add services to the container.
+builder.Services
+    .AddDataDependencies()
+    .AddBusinessDependencies();
+
+builder.Services.AddMapster();
+
+builder.Services.AddValidatorsFromAssemblyContaining<TestRequest>();
+builder.Services.AddFluentValidationAutoValidation();
+
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.Services.RegisterRepostitories();
-            builder.Services.RegisterService();
-
-            builder.Services.AddMapster();
-
-
-            builder.Services.AddControllers();
-            builder.Services.AddSwaggerGen();
-
-            var app = builder.Build();
-
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-            // Configure the HTTP request pipeline.
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
-        }
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+// Configure the HTTP request pipeline.
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();

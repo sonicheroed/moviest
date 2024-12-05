@@ -8,7 +8,7 @@ namespace MovieStoreC.DL
     {
         public static void RegisterService(this IServiceCollection service)
         {
-            service.AddSingleton<IMoviesService, MoviesService>();
+            service.AddSingleton<IBusinessService, MoviesService>();
 
         }
     }
