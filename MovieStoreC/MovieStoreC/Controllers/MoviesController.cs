@@ -1,76 +1,74 @@
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
-using MovieStoreB.BL.Interfaces;
-using MovieStoreB.Models.DTO;
-using MovieStoreB.Models.Requests;
+using MovieStoreC.BL.Interfaces;
+using MovieStoreC.Models.DTO;
+using MovieStoreC.Models.Requests;
 
-namespace MovieStoreB.Controllers
+namespace MovieStoreC.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class MoviesController : ControllerBase
     {
-        private readonly IMovieService _movieService;
+        private readonly IMoviesService _movieService;
         private readonly IMapper _mapper;
-        private readonly ILogger<MoviesController> _logger;
 
         public MoviesController(
-            IMovieService movieService,
-            IMapper mapper,
-            ILogger<MoviesController> logger)
+            IMoviesService movieService,
+            IMapper mapper)
         {
             _movieService = movieService;
             _mapper = mapper;
-            _logger = logger;
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<Movie> GetAll()
+        public IActionResult GetAll()
         {
-            try
+            var result = _movieService.GetAll();
+
+            if (result != null && result.Count > 0)
             {
-                //code
+                return Ok(result);
             }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Error in GetAll {e.Message}-{e.StackTrace}");
-            }
-            return _movieService.GetMovies();
+
+            return NotFound();
         }
 
-        [HttpGet("GetById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult GetById(int id)
+        [HttpGet("GetById")]
+        public IActionResult GetById(string id)
         {
-            if (id <= 0) return BadRequest();
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest($"Wrong ID:{id}");
+            }
 
-            var result =
-                _movieService.GetMoviesById(id);
+            var result = _movieService.GetById(id);
 
-            if (result == null) return NotFound();
+            if (result == null)
+            {
+                return NotFound($"Movie with ID:{id} not found");
+            }
 
             return Ok(result);
         }
 
-        [HttpPost("AddMovie")]
-        public void AddMovie(
-            [FromBody]AddMovieRequest movieRequest)
+        [HttpPost("Add")]
+        public IActionResult Add([FromBody]AddMovieRequest movie)
         {
-            var movie = _mapper.Map<Movie>(movieRequest);
+            var movieDto = _mapper.Map<Movie>(movie);
 
-            _movieService.AddMovie(movie);
+            _movieService.Add(movieDto);
+
+            return Ok();
         }
 
         [HttpDelete("Delete")]
-        public IActionResult Delete(int id)
+        public void Delete(int id)
         {
-            if (id <= 0) return BadRequest($"Wrong id:{id}");
-
-            _movieService.DeleteMovie(id);
-
-            return Ok();
+            //return _movieService.GetById(id);
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿using MovieStoreB.Models.DTO;
+﻿using MovieStoreC.Models.DTO;
 
-namespace MovieStoreB.DL.Interfaces
+namespace MovieStoreC.DL.Interfaces
 {
     public interface IActorRepository
     {
-        Actor? GetById(int id);
+        List<Actor> GetAll();
+
+        Actor? GetById(string id);
     }
 }

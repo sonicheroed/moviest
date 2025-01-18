@@ -1,8 +1,8 @@
 ﻿using MovieStoreC.Models.DTO;
 
-namespace MovieStoreC.DL.Interfaces
+namespace MovieStoreC.BL.Interfaces
 {
-    public interface IMovieRepository
+    public interface IMoviesService
     {
         List<Movie> GetAll();
 
@@ -10,6 +10,6 @@ namespace MovieStoreC.DL.Interfaces
 
         void Add(Movie movie);
 
-        void Update(Movie movie);
+        void AddActorToMovie(string movieId, string actor);
     }
 }

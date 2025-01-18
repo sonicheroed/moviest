@@ -2,14 +2,16 @@
 using MovieStoreC.BL.Interfaces;
 using MovieStoreC.BL.Services;
 
-namespace MovieStoreC.DL
+namespace MovieStoreC.BL
 {
     public static class DependenciesInjection
     {
-        public static void RegisterService(this IServiceCollection service)
+        public static IServiceCollection
+            RegisterServices(this IServiceCollection services)
         {
-            service.AddSingleton<IBusinessService, MoviesService>();
-
+            return services
+                        .AddSingleton<IMoviesService, MoviesService>()
+                        .AddSingleton<IBusinessService, BusinessService>();
         }
     }
 }

@@ -4,30 +4,20 @@ using MovieStoreC.Models.DTO;
 
 namespace MovieStoreC.DL.Repositories
 {
-    public class MovieStaticDataRepository : IMovieRepository
+    [Obsolete]
+    internal class ActorStaticDataRepository //: IActorRepository
     {
-        public void Add(Actor actor)
-        {
-            StaticDb.Actors.Add(actor);
-        }
-        public void DeleteActors(int id)
-        {
-            StaticDb.Actors.Remove();
-        }
+        //public List<Actor> GetAll()
+        //{
+        //    return StaticDb.Actors;
+        //}
 
-        public void Delete(Actor actor)
-        {
-            throw new NotImplementedException();
-        }
+        //public Actor? GetById(string id)
+        //{
+        //    if (string.IsNullOrEmpty(id)) return null;
 
-        public List<Actor> GetAllActors()
-        {
-            return StaticDb.actor;
-        }
-        public Actor? GetByIdActors(int id)
-        {
-            if (id <= 0) return null;
-            return StaticDb.Actors.FirstOrDefault(x => x.Id == id);
-        }
+        //    return StaticDb.Actors
+        //        .FirstOrDefault(x => x.Id == id);
+        //}
     }
 }

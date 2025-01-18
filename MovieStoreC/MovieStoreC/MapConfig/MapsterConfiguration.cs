@@ -1,4 +1,6 @@
 ﻿using Mapster;
+using MovieStoreC.Models.DTO;
+using MovieStoreC.Models.Requests;
 
 namespace MovieStoreC.MapConfig
 {
@@ -6,8 +8,7 @@ namespace MovieStoreC.MapConfig
     {
         public static void Configure()
         {
-            TypeAdapterConfig<Movie, AddMovieRequest>
-                .TwoWays();
+            TypeAdapterConfig<AddMovieRequest, Movie>
                 .NewConfig();
         }
     }
